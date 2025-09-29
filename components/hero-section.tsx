@@ -28,15 +28,9 @@ export function HeroSection() {
         <div className="flex flex-wrap justify-between items-start gap-8 lg:gap-16">
           {/* Left Content */}
           <div className="flex-1 min-w-[300px] flex flex-col items-center lg:items-start text-center lg:text-left">
-            <Image
-              ref={logoRef}
-              src="/logo.png"
-              alt="Edit Hive Productions Logo"
-              width={300}
-              height={3000}
-              className="mb-4"
-            />
-            <h1 className="text-4xl lg:text-5xl font-bold text-[#facc15] mb-6">EditHive Productions</h1>
+            
+            <h1 className="text-4xl lg:text-5xl font-bold text-[#facc15] mb-6">EditHive</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold text-[#facc15] mb-6">Productions</h1>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 asChild
