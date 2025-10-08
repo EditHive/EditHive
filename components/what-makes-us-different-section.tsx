@@ -51,7 +51,7 @@ export function WhatMakesUsDifferentSection() {
           {/* Rotating Items Around Center */}
           {differences.map((item, index) => {
             const angle = (360 / differences.length) * index - 90; // Start from top
-            const radius = 180; // Distance from center
+            const radius = 160; // Base radius - will be adjusted via CSS
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
             
@@ -67,7 +67,7 @@ export function WhatMakesUsDifferentSection() {
               >
                 {/* Connection Line to Center */}
                 <div 
-                  className="absolute w-0.5 bg-gradient-to-r from-[#d4af37]/30 to-transparent group-hover:from-[#d4af37]/60 transition-all duration-500"
+                  className="absolute w-0.5 bg-gradient-to-r from-[#d4af37]/30 to-transparent group-hover:from-[#d4af37]/60 transition-all duration-500 hidden md:block"
                   style={{
                     height: `${radius}px`,
                     transformOrigin: 'bottom center',
@@ -93,8 +93,38 @@ export function WhatMakesUsDifferentSection() {
                     </span>
                   </div>
                   
-                  {/* Tooltip on Hover */}
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+                  {/* Tooltip on Hover - Smart Positioning */}
+                  <div 
+                    className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20"
+                    style={{
+                      // Smart positioning based on circle position
+                      ...(angle >= -45 && angle <= 45 ? {
+                        // Top circle - tooltip below
+                        top: '100%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        marginTop: '12px'
+                      } : angle > 45 && angle <= 135 ? {
+                        // Right circle - tooltip left
+                        right: '100%',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        marginRight: '12px'
+                      } : angle > 135 || angle <= -135 ? {
+                        // Bottom circle - tooltip above
+                        bottom: '100%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        marginBottom: '12px'
+                      } : {
+                        // Left circle - tooltip right
+                        left: '100%',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        marginLeft: '12px'
+                      })
+                    }}
+                  >
                     <div className="bg-[#1a1a1a]/95 backdrop-blur-sm p-4 rounded-xl border border-[#d4af37]/30 shadow-xl max-w-xs">
                       <h3 className="text-sm font-bold text-[#d4af37] mb-2 text-center">
                         {item.title}
@@ -103,8 +133,20 @@ export function WhatMakesUsDifferentSection() {
                         {item.description}
                       </p>
                     </div>
-                    {/* Arrow */}
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#1a1a1a]/95"></div>
+                    {/* Smart Arrow Positioning */}
+                    {angle >= -45 && angle <= 45 ? (
+                      // Top circle - arrow pointing up
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-[#1a1a1a]/95"></div>
+                    ) : angle > 45 && angle <= 135 ? (
+                      // Right circle - arrow pointing right  
+                      <div className="absolute left-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-l-4 border-transparent border-l-[#1a1a1a]/95"></div>
+                    ) : angle > 135 || angle <= -135 ? (
+                      // Bottom circle - arrow pointing down
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#1a1a1a]/95"></div>
+                    ) : (
+                      // Left circle - arrow pointing left
+                      <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-[#1a1a1a]/95"></div>
+                    )}
                   </div>
                 </div>
               </div>
