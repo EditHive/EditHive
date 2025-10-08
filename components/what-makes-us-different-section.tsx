@@ -100,36 +100,41 @@ export function WhatMakesUsDifferentSection() {
                   
                 </div>
                 
-                {/* Tooltip on hover - positioned at tip of line */}
-                <div className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
-                  <div 
-                    className="absolute bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-44"
-                    style={{
+                {/* Tooltip positioned based on angle */}
+                <div 
+                  className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
+                  style={{
+                    // Position tooltip based on specific angle with custom offsets
+                    ...(index === 0 ? { // Top circle (Story-Driven)
+                      top: '-120px',
                       left: '50%',
-                      top: '50%', 
-                      transform: `translate(calc(-50% + ${tooltipX}px), calc(-50% + ${tooltipY}px))`,
-                      transformOrigin: 'center'
-                    }}
-                  >
+                      transform: 'translateX(-50%)'
+                    } : index === 1 ? { // Top-right circle (Custom Workflows)
+                      top: '-60px', 
+                      right: '-140px',
+                      transform: 'none'
+                    } : index === 2 ? { // Bottom-right circle (Collaboration)
+                      bottom: '-60px',
+                      right: '-140px', 
+                      transform: 'none'
+                    } : index === 3 ? { // Bottom circle (Global Reach)
+                      bottom: '-120px',
+                      left: '50%',
+                      transform: 'translateX(-50%)'
+                    } : { // Left circle (Reliable)
+                      top: '50%',
+                      left: '-140px',
+                      transform: 'translateY(-50%)'
+                    })
+                  }}
+                >
+                  <div className="bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-40">
                     <h3 className="text-sm font-bold text-[#d4af37] mb-1 text-center">
                       {item.title}
                     </h3>
                     <p className="text-xs text-gray-300 text-center leading-tight">
                       {item.description}
                     </p>
-                    {/* Small arrow pointing toward circle */}
-                    <div 
-                      className="absolute w-2 h-2 bg-[#d4af37] rotate-45"
-                      style={{
-                        left: '50%',
-                        top: angle >= -45 && angle <= 45 ? '-4px' : 
-                             angle > 45 && angle <= 135 ? '50%' :
-                             angle > 135 || angle <= -135 ? 'calc(100% - 4px)' : '50%',
-                        transform: angle >= -45 && angle <= 45 ? 'translateX(-50%)' :
-                                  angle > 45 && angle <= 135 ? 'translate(4px, -50%)' :
-                                  angle > 135 || angle <= -135 ? 'translateX(-50%)' : 'translate(-8px, -50%)'
-                      }}
-                    ></div>
                   </div>
                 </div>
               </div>
