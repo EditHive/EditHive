@@ -70,18 +70,6 @@ export function WhatMakesUsDifferentSection() {
                   transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
                 }}
               >
-                {/* Connection Line to Center */}
-                <div 
-                  className="absolute w-0.5 bg-gradient-to-r from-[#d4af37]/30 to-transparent group-hover:from-[#d4af37]/60 transition-all duration-500 hidden md:block"
-                  style={{
-                    height: `${radius}px`,
-                    transformOrigin: 'bottom center',
-                    transform: `rotate(${angle + 90}deg)`,
-                    bottom: '50%',
-                    left: '50%',
-                    marginLeft: '-1px',
-                  }}
-                ></div>
                 
                 {/* Item Container */}
                 <div className="relative w-24 h-24 md:w-32 md:h-32 group-hover:scale-110 transition-all duration-500">
@@ -100,35 +88,25 @@ export function WhatMakesUsDifferentSection() {
                   
                 </div>
                 
-                {/* Tooltip positioned based on angle */}
-                <div 
-                  className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
-                  style={{
-                    // Position tooltip based on specific angle with custom offsets
-                    ...(index === 0 ? { // Top circle (Story-Driven)
-                      top: '-120px',
-                      left: '50%',
-                      transform: 'translateX(-50%)'
-                    } : index === 1 ? { // Top-right circle (Custom Workflows)
-                      top: '-60px', 
-                      right: '-140px',
-                      transform: 'none'
-                    } : index === 2 ? { // Bottom-right circle (Collaboration)
-                      bottom: '-60px',
-                      right: '-140px', 
-                      transform: 'none'
-                    } : index === 3 ? { // Bottom circle (Global Reach)
-                      bottom: '-120px',
-                      left: '50%',
-                      transform: 'translateX(-50%)'
-                    } : { // Left circle (Reliable)
-                      top: '50%',
-                      left: '-140px',
-                      transform: 'translateY(-50%)'
-                    })
-                  }}
-                >
-                  <div className="bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-40">
+                {/* Tooltip aligned to individual circle */}
+                <div className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                  <div 
+                    className="absolute bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-44"
+                    style={{
+                      // Align relative to the circle itself
+                      ...(index === 0 ? { // Top: place above circle
+                        left: '50%', top: '-56px', transform: 'translateX(-50%)'
+                      } : index === 1 ? { // Top-right: place to right of circle
+                        left: 'calc(100% + 12px)', top: '50%', transform: 'translateY(-50%)'
+                      } : index === 2 ? { // Bottom-right: place to right of circle
+                        left: 'calc(100% + 12px)', top: '50%', transform: 'translateY(-50%)'
+                      } : index === 3 ? { // Bottom: place below circle
+                        left: '50%', top: 'calc(100% + 12px)', transform: 'translateX(-50%)'
+                      } : { // Left: place to left of circle
+                        right: 'calc(100% + 12px)', top: '50%', transform: 'translateY(-50%)'
+                      })
+                    }}
+                  >
                     <h3 className="text-sm font-bold text-[#d4af37] mb-1 text-center">
                       {item.title}
                     </h3>
