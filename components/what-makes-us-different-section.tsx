@@ -98,24 +98,24 @@ export function WhatMakesUsDifferentSection() {
                     </span>
                   </div>
                   
-                  {/* Tooltip on Hover - Positioned on the line */}
+                </div>
+              </div>
+                {/* Tooltip on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
                   <div 
-                    className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
+                    className="absolute bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-40"
                     style={{
-                      // Position tooltip exactly on the connecting line using calculated position
-                      left: `${tooltipX}px`,
-                      top: `${tooltipY}px`,
-                      transform: 'translate(-50%, -50%)'
+                      left: '50%',
+                      top: '50%', 
+                      transform: `translate(calc(-50% + ${tooltipX}px), calc(-50% + ${tooltipY}px))`
                     }}
                   >
-                    <div className="bg-[#0d0d0d]/95 backdrop-blur-sm p-4 rounded-xl border-2 border-[#d4af37]/60 shadow-2xl w-48 min-h-[80px] flex flex-col justify-center">
-                      <h3 className="text-sm font-bold text-[#d4af37] mb-2 text-center">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-gray-300 text-center leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
+                    <h3 className="text-sm font-bold text-[#d4af37] mb-1 text-center">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-gray-300 text-center leading-tight">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               </div>
