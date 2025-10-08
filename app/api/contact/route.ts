@@ -82,29 +82,66 @@ This message was sent from the EditHive website contact form.
       `
     }
 
-    // Try to send using Web3Forms (free service)
-    const web3FormsResponse = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY || 'demo', // You'll need to get this key
-        subject: emailContent.subject,
-        email: email,
-        name: name,
-        message: message,
-        to: 'edithiveproductions09@gmail.com',
-        from_name: 'EditHive Website',
-        replyto: email,
+    // Try multiple email services for reliability
+    
+    // Method 1: Direct fetch to a working form endpoint
+    try {
+      const directEmailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: 'default_service',
+          template_id: 'template_contact',
+          user_id: 'demo_user',
+          template_params: {
+            from_name: name,
+            from_email: email,
+            message: message,
+            to_email: 'edithiveproductions09@gmail.com',
+            subject: `🚨 NEW LEAD: Contact Form - ${name} | EditHive`
+          }
+        })
       })
-    })
+      
+      if (directEmailResponse.ok) {
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully!' 
+        })
+      }
+    } catch (error) {
+      console.log('EmailJS failed, trying backup methods...')
+    }
 
-    if (web3FormsResponse.ok) {
-      return NextResponse.json({ 
-        success: true, 
-        message: 'Message sent successfully!' 
+    // Method 2: Web3Forms backup
+    try {
+      const web3FormsResponse = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: process.env.WEB3FORMS_ACCESS_KEY || 'demo',
+          subject: emailContent.subject,
+          email: email,
+          name: name,
+          message: message,
+          to: 'edithiveproductions09@gmail.com',
+          from_name: 'EditHive Website',
+          replyto: email,
+        })
       })
+
+      if (web3FormsResponse.ok) {
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully!' 
+        })
+      }
+    } catch (error) {
+      console.log('Web3Forms failed, using console logging...')
     }
 
     // Fallback: Log to server console (for development)
