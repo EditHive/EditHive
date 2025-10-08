@@ -52,16 +52,16 @@ export function HeroSection() {
             <h3 className="text-2xl font-bold text-[#d4af37] mb-6">Our Promises</h3>
             <ul className="space-y-4 text-lg">
               <li className="flex items-center">
-                <span className="text-green-400 mr-3">✅</span>
-                On Time Delivery
+                <span className="text-green-400 mr-3">🎯</span>
+                On Schedule, On Point, Every Time
               </li>
               <li className="flex items-center">
-                <span className="text-green-400 mr-3">✅</span>
-                100% Customer Satisfaction
+                <span className="text-green-400 mr-3">💡</span>
+                Crafted with Creativity & Care
               </li>
               <li className="flex items-center">
-                <span className="text-green-400 mr-3">✅</span>
-                100% refund if you&apos;re not satisfied
+                <span className="text-green-400 mr-3">🤝</span>
+                Your Satisfaction Is Our Inspiration
               </li>
             </ul>
           </div>
