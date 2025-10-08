@@ -41,66 +41,73 @@ export function WhatMakesUsDifferentSection() {
           What Makes Us Different
         </h2>
         
-        {/* Vertical Timeline Design */}
-        <div className="max-w-5xl mx-auto relative">
-          {/* Central vertical line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#d4af37] via-[#f5e08e] to-[#d4af37] transform -translate-x-1/2 hidden md:block"></div>
-          
-          {differences.map((item, index) => (
-            <div key={index} className="relative mb-20 last:mb-0">
-              {/* Timeline dot */}
-              <div className="absolute left-1/2 top-8 w-6 h-6 bg-[#d4af37] rounded-full border-4 border-[#0d0d0d] transform -translate-x-1/2 z-10 hidden md:block group-hover:scale-125 transition-transform duration-300"></div>
-              
-              <div className="group flex flex-col md:flex-row items-start gap-8">
-                {/* Left side content (odd items) */}
-                {index % 2 === 0 && (
-                  <div className="md:w-1/2 md:pr-16 md:text-right">
-                    <div className="bg-gradient-to-l from-[#d4af37]/10 to-transparent p-6 rounded-r-2xl border-r-4 border-[#d4af37]/30 group-hover:border-[#d4af37] transition-all duration-300">
-                      <div className="flex items-center justify-end gap-4 mb-4">
-                        <div>
-                          <span className="text-[#d4af37]/60 text-sm font-semibold">{item.number}</span>
-                          <h3 className="text-2xl font-bold text-white group-hover:text-[#d4af37] transition-colors duration-300">
-                            {item.title}
-                          </h3>
-                        </div>
-                        <div className="text-3xl group-hover:scale-125 transition-transform duration-300">
-                          {item.icon}
-                        </div>
-                      </div>
-                      <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors duration-300">
-                        {item.description}
-                      </p>
+        {/* Hexagonal Grid Layout */}
+        <div className="max-w-6xl mx-auto">
+          <div className="relative flex flex-col items-center">
+            {/* Top row - 1 hexagon */}
+            <div className="mb-8">
+              <div className="group relative">
+                <div className="hexagon bg-gradient-to-br from-[#d4af37]/20 to-[#f5e08e]/10 group-hover:from-[#d4af37]/40 group-hover:to-[#f5e08e]/20 transition-all duration-500 cursor-pointer">
+                  <div className="hexagon-inner flex flex-col items-center justify-center p-6 text-center">
+                    <div className="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300">
+                      {differences[0].icon}
                     </div>
+                    <div className="text-xs font-bold text-[#d4af37] mb-1">{differences[0].number}</div>
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors duration-300">
+                      {differences[0].title}
+                    </h3>
+                    <p className="text-xs text-gray-300 leading-tight group-hover:text-white transition-colors duration-300">
+                      {differences[0].description}
+                    </p>
                   </div>
-                )}
-                
-                {/* Spacer for right-side items */}
-                {index % 2 === 1 && <div className="md:w-1/2"></div>}
-                
-                {/* Right side content (even items) */}
-                {index % 2 === 1 && (
-                  <div className="md:w-1/2 md:pl-16">
-                    <div className="bg-gradient-to-r from-[#d4af37]/10 to-transparent p-6 rounded-l-2xl border-l-4 border-[#d4af37]/30 group-hover:border-[#d4af37] transition-all duration-300">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="text-3xl group-hover:scale-125 transition-transform duration-300">
-                          {item.icon}
-                        </div>
-                        <div>
-                          <span className="text-[#d4af37]/60 text-sm font-semibold">{item.number}</span>
-                          <h3 className="text-2xl font-bold text-white group-hover:text-[#d4af37] transition-colors duration-300">
-                            {item.title}
-                          </h3>
-                        </div>
-                      </div>
-                      <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors duration-300">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                )}
+                </div>
               </div>
             </div>
-          ))}
+
+            {/* Middle row - 2 hexagons */}
+            <div className="flex gap-4 mb-8">
+              {[1, 2].map((i) => (
+                <div key={i} className="group relative">
+                  <div className="hexagon bg-gradient-to-br from-[#d4af37]/20 to-[#f5e08e]/10 group-hover:from-[#d4af37]/40 group-hover:to-[#f5e08e]/20 transition-all duration-500 cursor-pointer">
+                    <div className="hexagon-inner flex flex-col items-center justify-center p-6 text-center">
+                      <div className="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300">
+                        {differences[i].icon}
+                      </div>
+                      <div className="text-xs font-bold text-[#d4af37] mb-1">{differences[i].number}</div>
+                      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors duration-300">
+                        {differences[i].title}
+                      </h3>
+                      <p className="text-xs text-gray-300 leading-tight group-hover:text-white transition-colors duration-300">
+                        {differences[i].description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom row - 2 hexagons */}
+            <div className="flex gap-4">
+              {[3, 4].map((i) => (
+                <div key={i} className="group relative">
+                  <div className="hexagon bg-gradient-to-br from-[#d4af37]/20 to-[#f5e08e]/10 group-hover:from-[#d4af37]/40 group-hover:to-[#f5e08e]/20 transition-all duration-500 cursor-pointer">
+                    <div className="hexagon-inner flex flex-col items-center justify-center p-6 text-center">
+                      <div className="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300">
+                        {differences[i].icon}
+                      </div>
+                      <div className="text-xs font-bold text-[#d4af37] mb-1">{differences[i].number}</div>
+                      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors duration-300">
+                        {differences[i].title}
+                      </h3>
+                      <p className="text-xs text-gray-300 leading-tight group-hover:text-white transition-colors duration-300">
+                        {differences[i].description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         
         {/* Bottom decoration */}
