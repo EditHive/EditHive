@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
 
 export function HeroSection() {
   const logoRef = useRef<HTMLImageElement>(null)
@@ -62,7 +61,7 @@ export function HeroSection() {
               </li>
               <li className="flex items-center">
                 <span className="text-green-400 mr-3">✅</span>
-                100% refund if you're not satisfied
+                100% refund if you&apos;re not satisfied
               </li>
             </ul>
           </div>

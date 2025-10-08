@@ -62,7 +62,7 @@ export default function TestimonialsCarousel() {
             What Our Clients Say
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300">
-            Don't just take our word for it - hear from our satisfied clients
+            Don&apos;t just take our word for it - hear from our satisfied clients
           </p>
         </div>
         
@@ -95,7 +95,7 @@ export default function TestimonialsCarousel() {
                         </div>
                       </div>
                       <blockquote className="text-gray-700 dark:text-gray-300 italic flex-grow">
-                        "{testimonial.content}"
+                        &ldquo;{testimonial.content}&rdquo;
                       </blockquote>
                     </CardContent>
                   </Card>
