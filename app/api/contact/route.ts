@@ -123,7 +123,7 @@ This message was sent from the EditHive website contact form.
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY || '289262d4-40ad-46f9-997a-91082d879d26',
+        access_key: '289262d4-40ad-46f9-997a-91082d879d26', // Main account only
           subject: emailContent.subject,
           email: email,
           name: name,

@@ -25,52 +25,41 @@ Message: ${message}
     // Log to server console (visible in Vercel function logs)
     console.log(emailContent)
 
-    // Multiple Web3Forms access keys for higher limits (750 submissions/month)
-    const web3FormsKeys = [
-      '289262d4-40ad-46f9-997a-91082d879d26', // Account 1 - edithiveproductions09
-      '814edeb6-52cf-4b71-a001-2cfcc99ed51f', // Account 2
-      'c9d6ffc4-8efa-46b2-b75a-51b1d6b38788', // Account 3
-    ]
-
-    // Try each Web3Forms account until one succeeds
-    for (let i = 0; i < web3FormsKeys.length; i++) {
-      try {
-        const accessKey = web3FormsKeys[i]
-        console.log(`Trying Web3Forms account ${i + 1}...`)
-        
-        const web3FormsResponse = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            access_key: accessKey,
-            subject: `🚨 NEW LEAD: Contact Form - ${name} | EditHive`,
-            email: email,
-            name: name,
-            message: message,
-            to: 'edithiveproductions09@gmail.com',
-            from_name: 'EditHive Website',
-            replyto: email,
-          })
+    // Use ONLY the main Web3Forms account to ensure emails go to edithiveproductions09@gmail.com
+    // The other accounts were sending emails to different addresses
+    try {
+      console.log('Sending email via main Web3Forms account...')
+      
+      const web3FormsResponse = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '289262d4-40ad-46f9-997a-91082d879d26', // Main account only
+          subject: `🚨 NEW LEAD: Contact Form - ${name} | EditHive`,
+          email: email, // Customer's email for reply-to
+          name: name,
+          message: message,
+          to: 'edithiveproductions09@gmail.com', // Your email
+          from_name: 'EditHive Website',
+          replyto: email, // Customer's email so you can reply
         })
+      })
 
-        const result = await web3FormsResponse.json()
-        
-        if (web3FormsResponse.ok && result.success) {
-          console.log(`✅ Email sent successfully via Web3Forms account ${i + 1}`)
-          return NextResponse.json({ 
-            success: true, 
-            message: `Message sent successfully! (Account ${i + 1})` 
-          })
-        } else {
-          console.log(`❌ Web3Forms account ${i + 1} failed:`, result)
-          continue // Try next account
-        }
-      } catch (error) {
-        console.error(`Web3Forms account ${i + 1} error:`, error)
-        continue // Try next account
+      const result = await web3FormsResponse.json()
+      
+      if (web3FormsResponse.ok && result.success) {
+        console.log('✅ Email sent successfully to edithiveproductions09@gmail.com')
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully to your EditHive account!' 
+        })
+      } else {
+        console.log('❌ Web3Forms failed:', result)
       }
+    } catch (error) {
+      console.error('Web3Forms error:', error)
     }
 
     // Fallback: Try Resend if Web3Forms fails and API key is provided
