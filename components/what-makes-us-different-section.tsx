@@ -97,9 +97,9 @@ export function WhatMakesUsDifferentSection() {
                   <div 
                     className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
                     style={{
-                      // Position tooltip exactly on the connecting line, closer to center
-                      left: `${x * 0.6}px`,
-                      top: `${y * 0.6}px`,
+                      // Position tooltip on connecting line with angle-specific positioning
+                      left: `${x * (angle >= -45 && angle <= 45 ? 0.75 : angle > 135 || angle <= -135 ? 0.75 : 0.7)}px`,
+                      top: `${y * (angle >= -45 && angle <= 45 ? 0.75 : angle > 135 || angle <= -135 ? 0.75 : 0.7)}px`,
                       transform: 'translate(-50%, -50%)'
                     }}
                   >
