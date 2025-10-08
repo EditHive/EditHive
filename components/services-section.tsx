@@ -27,7 +27,7 @@ export function ServicesSection() {
     },
     {
       icon: "🚀",
-      title: "Custome",
+      title: "Custom",
       description: "Dynamic animated visuals and text to elevate your storytelling and captivate your audience.",
     },
   ]
