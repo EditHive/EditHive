@@ -26,11 +26,12 @@ export async function POST(request: Request) {
       to: 'edithiveproductions09@gmail.com', // Your email
       from: email,
       replyTo: email,
-      subject: `New Contact Form Submission from ${name}`,
+      subject: `🚨 NEW LEAD: Contact Form - ${name} | EditHive`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background: linear-gradient(135deg, #d4af37, #f5e08e); padding: 20px; border-radius: 10px 10px 0 0;">
-            <h1 style="color: #000; margin: 0; text-align: center;">New Contact Form Submission</h1>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 3px solid #d4af37;">
+          <div style="background: linear-gradient(135deg, #d4af37, #f5e08e); padding: 25px; border-radius: 10px 10px 0 0;">
+            <h1 style="color: #000; margin: 0; text-align: center; font-size: 24px;">🚨 NEW LEAD ALERT! 🚨</h1>
+            <p style="color: #000; margin: 10px 0 0 0; text-align: center; font-size: 16px; font-weight: bold;">EditHive Contact Form Submission</p>
           </div>
           
           <div style="background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; border: 1px solid #ddd;">
