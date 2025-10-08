@@ -29,7 +29,7 @@ export function Model3D() {
     }
   })
 
-  const scale = isMobile ? [1.2, 1.2, 1.2] : [2, 2, 2]
+  const scale: [number, number, number] = isMobile ? [1.2, 1.2, 1.2] : [2, 2, 2]
 
   return (
     <group ref={meshRef} position={[0, 0, 0]} scale={scale}>

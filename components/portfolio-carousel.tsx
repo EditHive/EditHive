@@ -9,7 +9,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Badge } from "@/components/ui/badge"
 import { Play } from "lucide-react"
 
 const portfolioItems = [
