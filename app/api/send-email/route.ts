@@ -38,7 +38,7 @@ Message: ${message}
     console.log('='.repeat(50))
     console.log('🚨 NEW LEAD ALERT - EDITHIVE CONTACT FORM')
     console.log('='.repeat(50))
-    console.log(`TO: edithiveproductions09@gmail.com`)
+    console.log(`TO: edithiveproductions09@gmail.com + business partner`)
     console.log(`FROM: ${name} <${email}>`)
     console.log(`SUBJECT: ${emailData.subject}`)
     console.log(`TIME: ${emailData.timestamp}`)
@@ -47,35 +47,37 @@ Message: ${message}
     console.log(message)
     console.log('='.repeat(50))
 
-    // Method 2: Try simple POST to your email (will work with proper setup)
+    // Method 2: Send email to shared EditHive account using Web3Forms
     try {
-      const response = await fetch('https://api.resend.com/emails', {
+      const web3Response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer re_demo_key`, // Demo key for testing
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'EditHive Contact <contact@edithive.com>',
-          to: ['edithiveproductions09@gmail.com'],
-          subject: emailData.subject,
-          html: `
-            <h2>🚨 NEW LEAD ALERT!</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Time:</strong> ${emailData.timestamp}</p>
-            <hr>
-            <h3>Message:</h3>
-            <p>${message.replace(/\n/g, '<br>')}</p>
-          `
+          access_key: '289262d4-40ad-46f9-997a-91082d879d26',
+          subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
+          name: name,
+          email: email,
+          message: message,
+          from_name: 'EditHive Website',
+          replyto: email,
         })
       })
       
-      if (response.ok) {
-        console.log('✅ Email sent via Resend to edithiveproductions09@gmail.com')
+      const result = await web3Response.json()
+      
+      if (web3Response.ok && result.success) {
+        console.log('✅ Email sent successfully to shared EditHive account!')
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully! You and your partner will both receive it.' 
+        })
+      } else {
+        console.log('❌ Web3Forms failed:', result)
       }
     } catch (error) {
-      console.log('Resend failed (expected with demo key):', error.message)
+      console.log('Web3Forms error:', error)
     }
 
     // Fallback: Try Resend if Web3Forms fails and API key is provided
