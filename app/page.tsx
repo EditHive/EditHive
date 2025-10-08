@@ -7,6 +7,9 @@ import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { WorkSection } from "@/components/work-section"
 import { ServicesSection } from "@/components/services-section"
+import { WhyChooseUsSection } from "@/components/why-choose-us-section"
+import { WhatMakesUsDifferentSection } from "@/components/what-makes-us-different-section"
+import { EditingArsenalSection } from "@/components/editing-arsenal-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import Head from "next/head" // Import Head from next/head
@@ -41,6 +44,9 @@ export default function Home() {
             <HeroSection />
             <WorkSection />
             <ServicesSection />
+            <WhyChooseUsSection />
+            <WhatMakesUsDifferentSection />
+            <EditingArsenalSection />
             <ContactSection />
           </main>
           <Footer />
