@@ -93,22 +93,22 @@ export function WhatMakesUsDifferentSection() {
                     </span>
                   </div>
                   
-                  {/* Tooltip on Hover - Positioned along the line */}
+                  {/* Tooltip on Hover - Positioned exactly on the line */}
                   <div 
-                    className="fixed opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
+                    className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
                     style={{
-                      // Position tooltip halfway between circle and center along the line
-                      left: `calc(50% + ${x/2}px)`,
-                      top: `calc(50% + ${y/2}px)`,
+                      // Position tooltip exactly on the connecting line, closer to center
+                      left: `${x * 0.6}px`,
+                      top: `${y * 0.6}px`,
                       transform: 'translate(-50%, -50%)'
                     }}
                   >
-                    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm p-3 rounded-lg border border-[#d4af37]/50 shadow-xl max-w-xs">
-                      <h3 className="text-sm font-bold text-[#d4af37] mb-2 text-center">
+                    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm p-3 rounded-lg border border-[#d4af37]/50 shadow-xl w-40 h-20 flex flex-col justify-center">
+                      <h3 className="text-xs font-bold text-[#d4af37] mb-1 text-center leading-tight">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-gray-300 text-center leading-relaxed">
-                        {item.description}
+                      <p className="text-xs text-gray-300 text-center leading-tight overflow-hidden">
+                        {item.description.length > 60 ? item.description.substring(0, 57) + '...' : item.description}
                       </p>
                     </div>
                   </div>
