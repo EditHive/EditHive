@@ -27,14 +27,71 @@ export async function POST(request: Request) {
     console.log('✅ CONTACT FORM SUBMISSION LOGGED SUCCESSFULLY')
     console.log('='.repeat(60))
 
-    // Try Resend API (most reliable for custom recipients)
+    // Method 1: Try direct SMTP-style email using Netlify Forms
     try {
-      const resendResponse = await fetch('https://api.resend.com/emails', {
+      const netlifyResponse = await fetch('https://api.netlify.com/api/v1/forms/submit', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer re_123abc_demo', // Demo key - replace with real one
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          'form-name': 'contact',
+          'name': name,
+          'email': email, 
+          'message': message,
+          '_to': 'edithiveproductions09@gmail.com',
+          '_subject': `🚨 NEW LEAD: ${name} | EditHive Contact Form`
+        })
+      })
+      
+      if (netlifyResponse.ok) {
+        console.log('✅ Email sent via Netlify to edithiveproductions09@gmail.com')
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully to EditHive!' 
+        })
+      }
+    } catch (error) {
+      console.log('Netlify error:', error)
+    }
+
+    // Method 2: Try Formspree (allows custom recipients)
+    try {
+      const formspreeResponse = await fetch('https://formspree.io/f/xnnanvwd', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          name: name,
+          message: message,
+          _replyto: email,
+          _subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
+        })
+      })
+      
+      if (formspreeResponse.ok) {
+        console.log('✅ Email sent via Formspree to edithiveproductions09@gmail.com')
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully to EditHive!' 
+        })
+      }
+    } catch (error) {
+      console.log('Formspree error:', error)
+    }
+
+    // Method 3: Try Resend (if API key available)
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const resendResponse = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
         body: JSON.stringify({
           from: 'EditHive Contact <noreply@resend.dev>',
           to: 'edithiveproductions09@gmail.com',
