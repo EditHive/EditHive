@@ -22,7 +22,43 @@ export async function POST(request: Request) {
     console.log(`📝 MESSAGE: ${message}`)
     console.log('='.repeat(60))
 
-    // Try Resend API if available
+    // Method 1: Try EmailJS (works immediately without API key)
+    try {
+      const emailjsResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: 'service_8hdyxjp',
+          template_id: 'template_contact',
+          user_id: 'GvtSKbSSGGKFZR-4q',
+          template_params: {
+            from_name: name,
+            from_email: email,
+            to_name: 'EditHive Team',
+            to_email: 'edithiveproductions09@gmail.com',
+            subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
+            message: message,
+            reply_to: email
+          }
+        })
+      })
+
+      if (emailjsResponse.ok) {
+        console.log('✅ Email sent via EmailJS to edithiveproductions09@gmail.com')
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully to your email!' 
+        })
+      } else {
+        console.log('❌ EmailJS failed:', emailjsResponse.status)
+      }
+    } catch (error) {
+      console.log('EmailJS error:', error)
+    }
+
+    // Method 2: Try Resend API if available
     if (process.env.RESEND_API_KEY) {
       try {
         const resendResponse = await fetch('https://api.resend.com/emails', {
@@ -87,10 +123,36 @@ export async function POST(request: Request) {
       console.log('⚠️  No Resend API key found. Add RESEND_API_KEY to environment variables.')
     }
 
+    // Method 3: Try FormSubmit (reliable email delivery)
+    try {
+      const formData = new FormData()
+      formData.append('name', name)
+      formData.append('email', email)
+      formData.append('message', message)
+      formData.append('_subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
+      formData.append('_next', 'https://edithive.com/thank-you')
+      formData.append('_captcha', 'false')
+      
+      const formsubmitResponse = await fetch('https://formsubmit.co/edithiveproductions09@gmail.com', {
+        method: 'POST',
+        body: formData
+      })
+      
+      if (formsubmitResponse.ok) {
+        console.log('✅ Email sent via FormSubmit to edithiveproductions09@gmail.com')
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully to your email!' 
+        })
+      }
+    } catch (error) {
+      console.log('FormSubmit error:', error)
+    }
+
     // Fallback success (form data is logged)
     return NextResponse.json({ 
       success: true, 
-      message: 'Message received! Add email service for delivery to inbox.' 
+      message: 'Message logged successfully! Email services may need configuration.' 
     })
 
   } catch (error) {
