@@ -29,8 +29,8 @@ export function HeroSection() {
           {/* Left Content */}
           <div className="flex-1 min-w-[300px] flex flex-col items-center lg:items-start text-center lg:text-left">
             
-            <h1 className="text-4xl lg:text-5xl font-bold text-[#facc15] mb-6">EditHive</h1>
-            <h1 className="text-4xl lg:text-5xl font-bold text-[#facc15] mb-6">Productions</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold text-[#facc15] mb-6 font-lequire">EditHive</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold text-[#facc15] mb-6 font-lequire">Productions</h1>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 asChild

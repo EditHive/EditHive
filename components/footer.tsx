@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer className="bg-[#1a1a1a]/90  border-t border-[#d4af37]/20 py-12">
       <div className="container mx-auto px-4 text-center">
-        <div className="text-2xl font-bold text-[#d4af37] mb-4">EditHive</div>
+        <div className="text-2xl font-bold text-[#d4af37] mb-4 font-lequire">EditHive</div>
 
         <div className="flex flex-wrap justify-center gap-8 mb-6">
           {footerLinks.map((link) => (
@@ -23,7 +23,7 @@ export function Footer() {
           ))}
         </div>
 
-        <p className="text-gray-400 text-sm">© 2023 Edithive. All rights reserved.</p>
+        <p className="text-gray-400 text-sm font-lequire">© 2023 Edithive. All rights reserved.</p>
       </div>
     </footer>
   )
