@@ -92,53 +92,25 @@ export async function POST(request: Request) {
             'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
             'Content-Type': 'application/json'
           },
-        body: JSON.stringify({
-          from: 'EditHive Contact <noreply@resend.dev>',
-          to: 'edithiveproductions09@gmail.com',
-          reply_to: email,
-          subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
-          html: `
-            <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-              <div style="background: linear-gradient(135deg, #d4af37, #f5e08e); padding: 25px; text-align: center; border-radius: 10px 10px 0 0;">
-                <h1 style="margin: 0; color: #000; font-size: 24px;">🚨 NEW LEAD ALERT!</h1>
-                <p style="margin: 10px 0 0 0; color: #000; font-weight: bold;">EditHive Contact Form Submission</p>
-              </div>
-              
-              <div style="background: #f8f9fa; padding: 30px; border: 1px solid #ddd; border-radius: 0 0 10px 10px;">
-                <div style="margin-bottom: 25px;">
-                  <h2 style="color: #333; border-bottom: 2px solid #d4af37; padding-bottom: 8px; margin-bottom: 15px;">📞 Contact Information</h2>
-                  <p style="margin: 8px 0; font-size: 16px;"><strong>Name:</strong> ${name}</p>
-                  <p style="margin: 8px 0; font-size: 16px;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #d4af37;">${email}</a></p>
-                  <p style="margin: 8px 0; font-size: 16px;"><strong>Received:</strong> ${timestamp}</p>
-                </div>
-                
-                <div>
-                  <h2 style="color: #333; border-bottom: 2px solid #d4af37; padding-bottom: 8px; margin-bottom: 15px;">💬 Message</h2>
-                  <div style="background: white; padding: 20px; border-left: 4px solid #d4af37; border-radius: 4px;">
-                    <p style="margin: 0; line-height: 1.6; font-size: 16px; color: #555;">${message.replace(/\n/g, '<br>')}</p>
-                  </div>
-                </div>
-                
-                <div style="margin-top: 25px; padding: 15px; background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 4px;">
-                  <p style="margin: 0; font-size: 14px; color: #1565c0;">
-                    <strong>💡 Quick Reply:</strong> Simply reply to this email to respond directly to ${name}
-                  </p>
-                </div>
-              </div>
-            </div>
-          `
+          body: JSON.stringify({
+            from: 'EditHive Contact <noreply@resend.dev>',
+            to: 'edithiveproductions09@gmail.com',
+            reply_to: email,
+            subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
+            html: `<h2>New Contact Form Submission</h2><p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`
+          })
         })
-      })
 
-      if (resendResponse.ok) {
-        console.log('✅ Email sent successfully via Resend to edithiveproductions09@gmail.com')
-        return NextResponse.json({ 
-          success: true, 
-          message: 'Message sent successfully to EditHive!' 
-        })
+        if (resendResponse.ok) {
+          console.log('✅ Email sent successfully via Resend')
+          return NextResponse.json({ 
+            success: true, 
+            message: 'Message sent successfully!' 
+          })
+        }
+      } catch (error) {
+        console.error('Resend API error:', error)
       }
-    } catch (error) {
-      console.error('Resend API error:', error)
     }
 
     // Always return success since we have console logging as backup
