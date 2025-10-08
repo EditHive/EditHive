@@ -18,7 +18,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-[#1a1a1a]/90 backdrop-blur-sm border-b border-[#d4af37]/20">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-[#d4af37] tracking-wide font-lequire">EditHive</div>
+        <div className="text-2xl font-bold text-[#d4af37] tracking-wide">EditHive</div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-8">
