@@ -71,7 +71,7 @@ Message: ${message}
         console.log('✅ Email sent successfully to shared EditHive account!')
         return NextResponse.json({ 
           success: true, 
-          message: 'Message sent successfully! You and your partner will both receive it.' 
+          message: 'Message sent successfully!' 
         })
       } else {
         console.log('❌ Web3Forms failed:', result)
