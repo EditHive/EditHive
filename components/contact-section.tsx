@@ -27,7 +27,7 @@ export function ContactSection() {
     setSubmitStatus({ type: null, message: '' })
 
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await fetch('/api/forward-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

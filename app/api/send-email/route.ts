@@ -47,37 +47,87 @@ Message: ${message}
     console.log(message)
     console.log('='.repeat(50))
 
-    // Method 2: Send email to shared EditHive account using Web3Forms
+    // Method 2: Use Formsubmit.co which allows custom email destinations
     try {
-      const web3Response = await fetch('https://api.web3forms.com/submit', {
+      const formData = new FormData()
+      formData.append('name', name)
+      formData.append('email', email)
+      formData.append('message', message)
+      formData.append('_subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
+      formData.append('_next', 'https://edithive.com/thank-you')
+      formData.append('_captcha', 'false')
+      
+      const formsubmitResponse = await fetch('https://formsubmit.co/edithiveproductions09@gmail.com', {
+        method: 'POST',
+        body: formData
+      })
+      
+      if (formsubmitResponse.ok) {
+        console.log('✅ Email sent via Formsubmit to edithiveproductions09@gmail.com!')
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Message sent successfully!' 
+        })
+      }
+    } catch (error) {
+      console.log('Formsubmit error:', error)
+    }
+
+    // Method 3: Backup - Try direct SMTP-like service
+    try {
+      const emailData = {
+        to: 'edithiveproductions09@gmail.com',
+        from: `${name} <${email}>`,
+        subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="background: linear-gradient(135deg, #d4af37, #f5e08e); padding: 20px; border-radius: 10px 10px 0 0;">
+              <h1 style="color: #000; margin: 0; text-align: center;">🚨 NEW LEAD ALERT!</h1>
+              <p style="color: #000; margin: 10px 0 0 0; text-align: center; font-weight: bold;">EditHive Contact Form</p>
+            </div>
+            <div style="background: #f9f9f9; padding: 30px; border: 1px solid #ddd; border-radius: 0 0 10px 10px;">
+              <h2 style="color: #333; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">Contact Details</h2>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+              <h2 style="color: #333; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">Message</h2>
+              <div style="background: white; padding: 20px; border-left: 4px solid #d4af37;">
+                <p style="margin: 0; line-height: 1.6;">${message.replace(/\n/g, '<br>')}</p>
+              </div>
+            </div>
+          </div>
+        `
+      }
+
+      // Send to our email processing service
+      const processResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_key: '289262d4-40ad-46f9-997a-91082d879d26',
-          subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
-          name: name,
-          email: email,
-          message: message,
-          from_name: 'EditHive Website',
-          replyto: email,
+          service_id: 'gmail',
+          template_id: 'contact_form',
+          user_id: 'public_key_here',
+          template_params: {
+            to_email: 'edithiveproductions09@gmail.com',
+            from_name: name,
+            from_email: email,
+            message: message,
+            subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`
+          }
         })
       })
-      
-      const result = await web3Response.json()
-      
-      if (web3Response.ok && result.success) {
-        console.log('✅ Email sent successfully to shared EditHive account!')
+
+      if (processResponse.ok) {
+        console.log('✅ Email processed and sent to edithiveproductions09@gmail.com')
         return NextResponse.json({ 
           success: true, 
           message: 'Message sent successfully!' 
         })
-      } else {
-        console.log('❌ Web3Forms failed:', result)
       }
     } catch (error) {
-      console.log('Web3Forms error:', error)
+      console.log('Email processing error:', error)
     }
 
     // Fallback: Try Resend if Web3Forms fails and API key is provided
