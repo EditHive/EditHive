@@ -93,17 +93,27 @@ export function WhatMakesUsDifferentSection() {
                   <div 
                     className="absolute bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-44"
                     style={{
-                      // Align relative to the circle itself
-                      ...(index === 0 ? { // Top: place above circle
-                        left: '50%', top: '-56px', transform: 'translateX(-50%)'
-                      } : index === 1 ? { // Top-right: place to right of circle
-                        left: 'calc(100% + 12px)', top: '50%', transform: 'translateY(-50%)'
-                      } : index === 2 ? { // Bottom-right: place to right of circle
-                        left: 'calc(100% + 12px)', top: '50%', transform: 'translateY(-50%)'
-                      } : index === 3 ? { // Bottom: place below circle
-                        left: '50%', top: 'calc(100% + 12px)', transform: 'translateX(-50%)'
-                      } : { // Left: place to left of circle
-                        right: 'calc(100% + 12px)', top: '50%', transform: 'translateY(-50%)'
+                      // Precise alignment relative to each circle
+                      ...(index === 0 ? { // Top circle - tooltip above
+                        left: '50%', 
+                        bottom: 'calc(100% + 16px)', 
+                        transform: 'translateX(-50%)'
+                      } : index === 1 ? { // Top-right circle - tooltip to right
+                        left: 'calc(100% + 16px)', 
+                        top: '50%', 
+                        transform: 'translateY(-50%)'
+                      } : index === 2 ? { // Bottom-right circle - tooltip to right
+                        left: 'calc(100% + 16px)', 
+                        top: '50%', 
+                        transform: 'translateY(-50%)'
+                      } : index === 3 ? { // Bottom circle - tooltip below
+                        left: '50%', 
+                        top: 'calc(100% + 16px)', 
+                        transform: 'translateX(-50%)'
+                      } : { // Left circle - tooltip to left
+                        right: 'calc(100% + 16px)', 
+                        top: '50%', 
+                        transform: 'translateY(-50%)'
                       })
                     }}
                   >
