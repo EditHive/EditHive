@@ -41,63 +41,63 @@ export function WhatMakesUsDifferentSection() {
           What Makes Us Different
         </h2>
         
-        {/* Alternating List Layout */}
-        <div className="max-w-4xl mx-auto space-y-16">
+        {/* Vertical Timeline Design */}
+        <div className="max-w-5xl mx-auto relative">
+          {/* Central vertical line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#d4af37] via-[#f5e08e] to-[#d4af37] transform -translate-x-1/2 hidden md:block"></div>
+          
           {differences.map((item, index) => (
-            <div 
-              key={index}
-              className={`group flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-              }`}
-            >
-              {/* Icon Circle */}
-              <div className="flex-shrink-0 relative">
-                <div className="w-32 h-32 lg:w-40 lg:h-40 relative">
-                  {/* Rotating outer ring */}
-                  <div className="absolute inset-0 rounded-full border-4 border-dashed border-[#d4af37]/30 group-hover:border-[#d4af37]/60 transition-all duration-700 group-hover:rotate-180"></div>
-                  
-                  {/* Inner circle */}
-                  <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#d4af37]/20 to-[#f5e08e]/10 group-hover:from-[#d4af37]/40 group-hover:to-[#f5e08e]/20 transition-all duration-500">
-                    {/* Icon */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-4xl lg:text-5xl group-hover:scale-125 transition-transform duration-300">
-                        {item.icon}
-                      </span>
-                    </div>
-                    
-                    {/* Number */}
-                    <div className="absolute -top-2 -right-2 w-10 h-10 bg-[#d4af37] text-black font-bold rounded-full flex items-center justify-center text-sm group-hover:bg-[#f5e08e] group-hover:scale-110 transition-all duration-300">
-                      {item.number}
+            <div key={index} className="relative mb-20 last:mb-0">
+              {/* Timeline dot */}
+              <div className="absolute left-1/2 top-8 w-6 h-6 bg-[#d4af37] rounded-full border-4 border-[#0d0d0d] transform -translate-x-1/2 z-10 hidden md:block group-hover:scale-125 transition-transform duration-300"></div>
+              
+              <div className="group flex flex-col md:flex-row items-start gap-8">
+                {/* Left side content (odd items) */}
+                {index % 2 === 0 && (
+                  <div className="md:w-1/2 md:pr-16 md:text-right">
+                    <div className="bg-gradient-to-l from-[#d4af37]/10 to-transparent p-6 rounded-r-2xl border-r-4 border-[#d4af37]/30 group-hover:border-[#d4af37] transition-all duration-300">
+                      <div className="flex items-center justify-end gap-4 mb-4">
+                        <div>
+                          <span className="text-[#d4af37]/60 text-sm font-semibold">{item.number}</span>
+                          <h3 className="text-2xl font-bold text-white group-hover:text-[#d4af37] transition-colors duration-300">
+                            {item.title}
+                          </h3>
+                        </div>
+                        <div className="text-3xl group-hover:scale-125 transition-transform duration-300">
+                          {item.icon}
+                        </div>
+                      </div>
+                      <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors duration-300">
+                        {item.description}
+                      </p>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              {/* Content */}
-              <div className={`flex-1 text-center lg:text-left ${
-                index % 2 === 1 ? 'lg:text-right' : ''
-              }`}>
-                {/* Decorative line */}
-                <div className={`h-0.5 w-24 bg-gradient-to-r from-[#d4af37] to-transparent group-hover:w-32 transition-all duration-500 mb-6 ${
-                  index % 2 === 1 ? 'lg:ml-auto lg:bg-gradient-to-l' : 'mx-auto lg:mx-0'
-                }`}></div>
+                )}
                 
-                {/* Title */}
-                <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4 group-hover:text-[#d4af37] transition-colors duration-300">
-                  {item.title}
-                </h3>
+                {/* Spacer for right-side items */}
+                {index % 2 === 1 && <div className="md:w-1/2"></div>}
                 
-                {/* Description */}
-                <p className="text-gray-300 text-lg lg:text-xl leading-relaxed group-hover:text-white transition-colors duration-300 max-w-md mx-auto lg:mx-0">
-                  {item.description}
-                </p>
-                
-                {/* Quote decoration */}
-                <div className={`mt-6 opacity-20 group-hover:opacity-40 transition-opacity duration-300 ${
-                  index % 2 === 1 ? 'lg:text-right' : ''
-                }`}>
-                  <span className="text-6xl text-[#d4af37] font-serif">“</span>
-                </div>
+                {/* Right side content (even items) */}
+                {index % 2 === 1 && (
+                  <div className="md:w-1/2 md:pl-16">
+                    <div className="bg-gradient-to-r from-[#d4af37]/10 to-transparent p-6 rounded-l-2xl border-l-4 border-[#d4af37]/30 group-hover:border-[#d4af37] transition-all duration-300">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="text-3xl group-hover:scale-125 transition-transform duration-300">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <span className="text-[#d4af37]/60 text-sm font-semibold">{item.number}</span>
+                          <h3 className="text-2xl font-bold text-white group-hover:text-[#d4af37] transition-colors duration-300">
+                            {item.title}
+                          </h3>
+                        </div>
+                      </div>
+                      <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors duration-300">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
