@@ -93,39 +93,17 @@ export function WhatMakesUsDifferentSection() {
                     </span>
                   </div>
                   
-                  {/* Tooltip on Hover - Smart Positioning */}
+                  {/* Tooltip on Hover - Positioned along the line */}
                   <div 
-                    className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20"
+                    className="fixed opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
                     style={{
-                      // Smart positioning based on circle position
-                      ...(angle >= -45 && angle <= 45 ? {
-                        // Top circle - tooltip below
-                        top: '100%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        marginTop: '24px'
-                      } : angle > 45 && angle <= 135 ? {
-                        // Right circle - tooltip left
-                        right: '100%',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        marginRight: '24px'
-                      } : angle > 135 || angle <= -135 ? {
-                        // Bottom circle - tooltip above
-                        bottom: '100%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        marginBottom: '24px'
-                      } : {
-                        // Left circle - tooltip right
-                        left: '100%',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        marginLeft: '24px'
-                      })
+                      // Position tooltip halfway between circle and center along the line
+                      left: `calc(50% + ${x/2}px)`,
+                      top: `calc(50% + ${y/2}px)`,
+                      transform: 'translate(-50%, -50%)'
                     }}
                   >
-                    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm p-4 rounded-xl border border-[#d4af37]/30 shadow-xl max-w-xs">
+                    <div className="bg-[#1a1a1a]/95 backdrop-blur-sm p-3 rounded-lg border border-[#d4af37]/50 shadow-xl max-w-xs">
                       <h3 className="text-sm font-bold text-[#d4af37] mb-2 text-center">
                         {item.title}
                       </h3>
@@ -133,20 +111,6 @@ export function WhatMakesUsDifferentSection() {
                         {item.description}
                       </p>
                     </div>
-                    {/* Smart Arrow Positioning */}
-                    {angle >= -45 && angle <= 45 ? (
-                      // Top circle - arrow pointing up
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-[#1a1a1a]/95"></div>
-                    ) : angle > 45 && angle <= 135 ? (
-                      // Right circle - arrow pointing right  
-                      <div className="absolute left-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-l-4 border-transparent border-l-[#1a1a1a]/95"></div>
-                    ) : angle > 135 || angle <= -135 ? (
-                      // Bottom circle - arrow pointing down
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#1a1a1a]/95"></div>
-                    ) : (
-                      // Left circle - arrow pointing left
-                      <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-[#1a1a1a]/95"></div>
-                    )}
                   </div>
                 </div>
               </div>
