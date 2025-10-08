@@ -23,7 +23,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="font-lequire">{children}</body>
+      <body>{children}</body>
     </html>
   )
 }
