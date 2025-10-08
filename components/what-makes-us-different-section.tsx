@@ -55,8 +55,8 @@ export function WhatMakesUsDifferentSection() {
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
             
-            // Calculate tooltip position exactly on the line between center and circle
-            const tooltipDistance = radius * 0.6; // 60% of the way from center to circle
+            // Calculate tooltip position at the tip of the line (near the circle)
+            const tooltipDistance = radius * 0.85; // 85% of the way from center to circle (near the tip)
             const tooltipX = Math.cos((angle * Math.PI) / 180) * tooltipDistance;
             const tooltipY = Math.sin((angle * Math.PI) / 180) * tooltipDistance;
             
@@ -100,14 +100,15 @@ export function WhatMakesUsDifferentSection() {
                   
                 </div>
                 
-                {/* Tooltip on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                {/* Tooltip on hover - positioned at tip of line */}
+                <div className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
                   <div 
-                    className="absolute bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-40"
+                    className="absolute bg-[#0d0d0d]/95 backdrop-blur-sm p-3 rounded-lg border-2 border-[#d4af37]/60 shadow-2xl w-44"
                     style={{
                       left: '50%',
                       top: '50%', 
-                      transform: `translate(calc(-50% + ${tooltipX}px), calc(-50% + ${tooltipY}px))`
+                      transform: `translate(calc(-50% + ${tooltipX}px), calc(-50% + ${tooltipY}px))`,
+                      transformOrigin: 'center'
                     }}
                   >
                     <h3 className="text-sm font-bold text-[#d4af37] mb-1 text-center">
@@ -116,6 +117,19 @@ export function WhatMakesUsDifferentSection() {
                     <p className="text-xs text-gray-300 text-center leading-tight">
                       {item.description}
                     </p>
+                    {/* Small arrow pointing toward circle */}
+                    <div 
+                      className="absolute w-2 h-2 bg-[#d4af37] rotate-45"
+                      style={{
+                        left: '50%',
+                        top: angle >= -45 && angle <= 45 ? '-4px' : 
+                             angle > 45 && angle <= 135 ? '50%' :
+                             angle > 135 || angle <= -135 ? 'calc(100% - 4px)' : '50%',
+                        transform: angle >= -45 && angle <= 45 ? 'translateX(-50%)' :
+                                  angle > 45 && angle <= 135 ? 'translate(4px, -50%)' :
+                                  angle > 135 || angle <= -135 ? 'translateX(-50%)' : 'translate(-8px, -50%)'
+                      }}
+                    ></div>
                   </div>
                 </div>
               </div>
