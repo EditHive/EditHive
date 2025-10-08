@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Instagram, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import { Mail, Instagram, CheckCircle, AlertCircle, Loader2, Linkedin } from "lucide-react"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -135,14 +135,12 @@ export function ContactSection() {
           {/* Social Media Links */}
           <div className="flex justify-center space-x-8 mt-12">
             <a
-              href="https://x.com/"
+              href="https://www.linkedin.com/in/edithive-a54976387/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#d4af37] hover:text-[#f5e08e] transition-colors duration-300"
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.901 1.153h3.684l-8.739 10.914 10.518 11.532H13.75L6.103 12.097 1.153 1.153h5.086l5.526 7.664L18.901 1.153zm-.332 18.067L5.597 2.8H3.324l13.682 18.42h2.096z" />
-              </svg>
+              <Linkedin size={32} />
             </a>
             <a
               href="mailto:edithiveproductions09@gmail.com"
