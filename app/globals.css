@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Lequire';
+  src: url('/fonts/lequire/Lequire.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +17,9 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .font-lequire {
+    font-family: 'Lequire', Arial, Helvetica, sans-serif;
   }
 }
 

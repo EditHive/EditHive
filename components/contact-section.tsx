@@ -42,7 +42,7 @@ export function ContactSection() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="bg-[#0d0d0d] border-2 border-[#d4af37] text-white placeholder:text-gray-400 focus:border-[#f5e08e] focus:bg-[#0D002B] rounded-lg p-4 text-lg"
+              className="bg-[#0d0d0d] border-2 border-[#d4af37] text-white placeholder:text-gray-400 focus:border-[#f5e08e] focus:bg-[#0D002B] rounded-lg p-4 text-lg font-lequire"
             />
             <Input
               type="email"
@@ -51,7 +51,7 @@ export function ContactSection() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="bg-[#0d0d0d] border-2 border-[#d4af37] text-white placeholder:text-gray-400 focus:border-[#f5e08e] focus:bg-[#0D002B] rounded-lg p-4 text-lg"
+              className="bg-[#0d0d0d] border-2 border-[#d4af37] text-white placeholder:text-gray-400 focus:border-[#f5e08e] focus:bg-[#0D002B] rounded-lg p-4 text-lg font-lequire"
             />
             <Textarea
               name="message"
@@ -60,7 +60,7 @@ export function ContactSection() {
               onChange={handleChange}
               required
               rows={5}
-              className="bg-[#0d0d0d] border-2 border-[#d4af37] text-white placeholder:text-gray-400 focus:border-[#f5e08e] focus:bg-[#0D002B] rounded-lg p-4 text-lg resize-vertical"
+              className="bg-[#0d0d0d] border-2 border-[#d4af37] text-white placeholder:text-gray-400 focus:border-[#f5e08e] focus:bg-[#0D002B] rounded-lg p-4 text-lg resize-vertical font-lequire"
             />
             <Button
               type="submit"
