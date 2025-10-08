@@ -103,25 +103,25 @@ export function WhatMakesUsDifferentSection() {
                         top: '100%',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        marginTop: '12px'
+                        marginTop: '24px'
                       } : angle > 45 && angle <= 135 ? {
                         // Right circle - tooltip left
                         right: '100%',
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        marginRight: '12px'
+                        marginRight: '24px'
                       } : angle > 135 || angle <= -135 ? {
                         // Bottom circle - tooltip above
                         bottom: '100%',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        marginBottom: '12px'
+                        marginBottom: '24px'
                       } : {
                         // Left circle - tooltip right
                         left: '100%',
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        marginLeft: '12px'
+                        marginLeft: '24px'
                       })
                     }}
                   >

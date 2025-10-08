@@ -44,14 +44,14 @@ export function WhyChooseUsSection() {
         {/* Split Screen Magazine Layout */}
         <div className="max-w-7xl mx-auto">
           {features.map((feature, index) => (
-            <div key={index} className={`group relative mb-16 last:mb-0`}>
-              <div className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${
+            <div key={index} className={`group relative mb-12 last:mb-0`}>
+              <div className={`flex flex-col lg:flex-row items-center gap-6 lg:gap-12 ${
                 index % 2 === 1 ? 'lg:flex-row-reverse' : ''
               }`}>
                 
                 {/* Left Side - Icon & Number */}
                 <div className="flex-shrink-0 relative">
-                  <div className="w-32 h-32 lg:w-40 lg:h-40 relative">
+                  <div className="w-28 h-28 lg:w-36 lg:h-36 relative">
                     {/* Background circle with gradient */}
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#d4af37]/20 to-[#f5e08e]/10 group-hover:from-[#d4af37]/40 group-hover:to-[#f5e08e]/20 transition-all duration-500"></div>
                     
@@ -79,11 +79,11 @@ export function WhyChooseUsSection() {
                     index % 2 === 1 ? 'lg:ml-auto' : 'mx-auto lg:mx-0'
                   }`}></div>
                   
-                  <h3 className="text-3xl lg:text-4xl font-bold text-[#d4af37] mb-6 group-hover:text-[#f5e08e] transition-colors duration-300">
+                  <h3 className="text-2xl lg:text-3xl font-bold text-[#d4af37] mb-4 group-hover:text-[#f5e08e] transition-colors duration-300">
                     {feature.title}
                   </h3>
                   
-                  <p className="text-gray-300 text-lg lg:text-xl leading-relaxed group-hover:text-white transition-colors duration-300 max-w-2xl">
+                  <p className="text-gray-300 text-base lg:text-lg leading-relaxed group-hover:text-white transition-colors duration-300 max-w-2xl">
                     {feature.description}
                   </p>
                   
@@ -96,8 +96,8 @@ export function WhyChooseUsSection() {
               
               {/* Connecting line to next item */}
               {index < features.length - 1 && (
-                <div className="mt-16 flex justify-center">
-                  <div className="w-px h-12 bg-gradient-to-b from-[#d4af37]/50 to-transparent"></div>
+                <div className="mt-12 flex justify-center">
+                  <div className="w-px h-8 bg-gradient-to-b from-[#d4af37]/50 to-transparent"></div>
                 </div>
               )}
             </div>
