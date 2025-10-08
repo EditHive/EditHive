@@ -53,11 +53,11 @@ export function HeroSection() {
             <ul className="space-y-4 text-lg">
               <li className="flex items-center">
                 <span className="text-green-400 mr-3">✅</span>
-                On time delivery
+                On Time Delivery
               </li>
               <li className="flex items-center">
                 <span className="text-green-400 mr-3">✅</span>
-                100% customer satisfaction
+                100% Customer Satisfaction
               </li>
               <li className="flex items-center">
                 <span className="text-green-400 mr-3">✅</span>
