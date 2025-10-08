@@ -55,6 +55,11 @@ export function WhatMakesUsDifferentSection() {
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
             
+            // Calculate tooltip position exactly on the line between center and circle
+            const tooltipDistance = radius * 0.6; // 60% of the way from center to circle
+            const tooltipX = Math.cos((angle * Math.PI) / 180) * tooltipDistance;
+            const tooltipY = Math.sin((angle * Math.PI) / 180) * tooltipDistance;
+            
             return (
               <div
                 key={index}
@@ -97,9 +102,9 @@ export function WhatMakesUsDifferentSection() {
                   <div 
                     className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50"
                     style={{
-                      // Position tooltip halfway along the connecting line
-                      left: `${x * 0.5}px`,
-                      top: `${y * 0.5}px`,
+                      // Position tooltip exactly on the connecting line using calculated position
+                      left: `${tooltipX}px`,
+                      top: `${tooltipY}px`,
                       transform: 'translate(-50%, -50%)'
                     }}
                   >
