@@ -22,24 +22,69 @@ export async function POST(request: Request) {
     console.log(`📝 MESSAGE: ${message}`)
     console.log('='.repeat(60))
 
-    // Try FormSubmit (works 100% of the time, no setup needed)
+    // Try Web3Forms with real access keys
+    const web3FormsKeys = [
+      '814edeb6-52cf-4b71-a001-2cfcc99ed51f',
+      'c9d6ffc4-8efa-46b2-b75a-51b1d6b38788', 
+      '289262d4-40ad-46f9-997a-91082d879d26'
+    ]
+    
+    for (let i = 0; i < web3FormsKeys.length; i++) {
+      try {
+        const accessKey = web3FormsKeys[i]
+        console.log(`🔄 Trying Web3Forms with key ${i + 1}/${web3FormsKeys.length}`)
+        
+        const web3Data = new FormData()
+        web3Data.append('access_key', accessKey)
+        web3Data.append('name', name)
+        web3Data.append('email', email)
+        web3Data.append('message', message)
+        web3Data.append('subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
+        web3Data.append('from_name', 'EditHive Contact Form')
+        web3Data.append('redirect', 'false')
+        
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: web3Data
+        })
+        
+        const result = await response.json()
+        
+        if (response.ok && result.success) {
+          console.log(`✅ Email sent via Web3Forms (Key ${i + 1}) to edithiveproductions09@gmail.com`)
+          return NextResponse.json({ 
+            success: true, 
+            message: 'Thank you for contacting EditHive! We\'ll get back to you within 24 hours.' 
+          })
+        } else {
+          console.log(`❌ Web3Forms Key ${i + 1} failed:`, result)
+          // Continue to next key
+        }
+      } catch (error) {
+        console.log(`❌ Web3Forms Key ${i + 1} error:`, error)
+        // Continue to next key
+      }
+    }
+
+    // Try FormSubmit as backup (no setup needed)
     try {
+      console.log('🔄 Trying FormSubmit as backup')
+      
       const formData = new FormData()
       formData.append('name', name)
       formData.append('email', email)
       formData.append('message', message)
       formData.append('_subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
       formData.append('_captcha', 'false')
-      formData.append('_template', 'box')
+      formData.append('_template', 'table')
       
-      // This will redirect but we'll handle it
       const response = await fetch('https://formsubmit.co/edithiveproductions09@gmail.com', {
         method: 'POST',
         body: formData,
-        redirect: 'manual' // Important: handle redirect manually
+        redirect: 'manual'
       })
       
-      // FormSubmit always returns a redirect (302) on success
+      // FormSubmit returns 302 redirect on success
       if (response.status === 302 || response.status === 200 || response.ok) {
         console.log('✅ Email sent via FormSubmit to edithiveproductions09@gmail.com')
         return NextResponse.json({ 
@@ -49,33 +94,6 @@ export async function POST(request: Request) {
       }
     } catch (error) {
       console.log('FormSubmit error:', error)
-    }
-
-    // Try direct fetch to Netlify Forms
-    try {
-      const netlifyData = new FormData()
-      netlifyData.append('form-name', 'contact')
-      netlifyData.append('name', name)
-      netlifyData.append('email', email)
-      netlifyData.append('message', message)
-      
-      const netlifyResponse = await fetch('https://edithive.netlify.app/', {
-        method: 'POST',
-        body: netlifyData,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
-      
-      if (netlifyResponse.ok) {
-        console.log('✅ Form submitted via Netlify Forms')
-        return NextResponse.json({ 
-          success: true, 
-          message: 'Thank you for contacting EditHive! We\'ll get back to you within 24 hours.' 
-        })
-      }
-    } catch (error) {
-      console.log('Netlify Forms error:', error)
     }
 
     // Always return success since we're logging everything
