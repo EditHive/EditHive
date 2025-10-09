@@ -27,7 +27,7 @@ export function ContactSection() {
     setSubmitStatus({ type: null, message: '' })
 
     try {
-      const response = await fetch('/api/resend-email', {
+      const response = await fetch('/api/simple-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

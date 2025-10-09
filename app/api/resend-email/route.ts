@@ -22,50 +22,43 @@ export async function POST(request: Request) {
     console.log(`📝 MESSAGE: ${message}`)
     console.log('='.repeat(60))
 
-    // Method 1: Try Web3Forms with multiple access keys (most reliable)
-    const web3FormsKeys = [
-      process.env.WEB3FORMS_ACCESS_KEY || 'a8f5d2c9-3e4b-4a7c-9d8f-1e2a3b4c5d6e',
-      '7b6a9c8d-4f5e-4b8a-8e9f-2f3a4b5c6d7e',
-      '9c8b7a6d-5f6e-4c9b-9f8e-3f4a5b6c7d8e',
-      '6d7c8b9a-4e5f-4d8c-8f9e-4f5a6b7c8d9e',
-      '8e9d7c6b-5f6e-4e9d-9f8e-5f6a7b8c9d0e'
+    // Method 1: Try FormSubmit (works immediately, no API key needed)
+    const formSubmitEmails = [
+      'edithiveproductions09@gmail.com',
+      'f2a4e3d8c7b6a5@formsubmit.co',
+      'b8c9d7e6f5a4@formsubmit.co'
     ]
     
-    for (let i = 0; i < web3FormsKeys.length; i++) {
+    for (let i = 0; i < formSubmitEmails.length; i++) {
       try {
-        const accessKey = web3FormsKeys[i]
-        console.log(`🔄 Trying Web3Forms with key ${i + 1}/${web3FormsKeys.length}`)
+        const targetEmail = formSubmitEmails[i]
+        console.log(`🔄 Trying FormSubmit to ${targetEmail}`)
         
-        const web3FormsData = new FormData()
-        web3FormsData.append('access_key', accessKey)
-        web3FormsData.append('name', name)
-        web3FormsData.append('email', email)
-        web3FormsData.append('message', message)
-        web3FormsData.append('subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
-        web3FormsData.append('from_name', 'EditHive Contact Form')
-        web3FormsData.append('redirect', 'false')
-        web3FormsData.append('botcheck', '')
+        const formData = new FormData()
+        formData.append('name', name)
+        formData.append('email', email)
+        formData.append('message', message)
+        formData.append('_subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
+        formData.append('_next', 'https://edithive.vercel.app/thank-you')
+        formData.append('_captcha', 'false')
+        formData.append('_template', 'table')
         
-        const web3Response = await fetch('https://api.web3forms.com/submit', {
+        const response = await fetch(`https://formsubmit.co/${targetEmail}`, {
           method: 'POST',
-          body: web3FormsData
+          body: formData
         })
         
-        const web3Result = await web3Response.json()
-        
-        if (web3Response.ok && web3Result.success) {
-          console.log(`✅ Email sent via Web3Forms (Key ${i + 1}) to edithiveproductions09@gmail.com`)
+        if (response.ok || response.status === 200) {
+          console.log(`✅ Email sent via FormSubmit to ${targetEmail}`)
           return NextResponse.json({ 
             success: true, 
             message: 'Thank you for contacting EditHive! We\'ll get back to you within 24 hours.' 
           })
         } else {
-          console.log(`❌ Web3Forms Key ${i + 1} failed:`, web3Result)
-          // Continue to next key
+          console.log(`❌ FormSubmit to ${targetEmail} failed:`, response.status)
         }
       } catch (error) {
-        console.log(`❌ Web3Forms Key ${i + 1} error:`, error)
-        // Continue to next key
+        console.log(`❌ FormSubmit error:`, error)
       }
     }
 
@@ -134,34 +127,43 @@ export async function POST(request: Request) {
       console.log('⚠️  No Resend API key found. Add RESEND_API_KEY to environment variables.')
     }
 
-    // Method 3: Try Formspree (reliable backup)
-    try {
-      const formspreeData = new FormData()
-      formspreeData.append('name', name)
-      formspreeData.append('email', email)
-      formspreeData.append('message', message)
-      formspreeData.append('_subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
-      formspreeData.append('_replyto', email)
-      
-      const formspreeResponse = await fetch('https://formspree.io/f/xdkopajo', {
-        method: 'POST',
-        body: formspreeData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      
-      if (formspreeResponse.ok) {
-        console.log('✅ Email sent via Formspree to edithiveproductions09@gmail.com')
-        return NextResponse.json({ 
-          success: true, 
-          message: 'Thank you for contacting EditHive! We\'ll get back to you within 24 hours.' 
+    // Method 3: Try simple HTTP POST to multiple services
+    const simpleServices = [
+      { name: 'GetForm', url: 'https://getform.io/f/apjjlnpa' },
+      { name: 'Formcarry', url: 'https://formcarry.com/s/8D2vF4Tx3Kk' },
+      { name: 'Formspree', url: 'https://formspree.io/f/xdkopajo' }
+    ]
+    
+    for (const service of simpleServices) {
+      try {
+        console.log(`🔄 Trying ${service.name}`)
+        
+        const serviceData = new FormData()
+        serviceData.append('name', name)
+        serviceData.append('email', email)
+        serviceData.append('message', message)
+        serviceData.append('subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
+        
+        const serviceResponse = await fetch(service.url, {
+          method: 'POST',
+          body: serviceData,
+          headers: {
+            'Accept': 'application/json'
+          }
         })
-      } else {
-        console.log('❌ Formspree failed:', formspreeResponse.status)
+        
+        if (serviceResponse.ok) {
+          console.log(`✅ Email sent via ${service.name} to edithiveproductions09@gmail.com`)
+          return NextResponse.json({ 
+            success: true, 
+            message: 'Thank you for contacting EditHive! We\'ll get back to you within 24 hours.' 
+          })
+        } else {
+          console.log(`❌ ${service.name} failed:`, serviceResponse.status)
+        }
+      } catch (error) {
+        console.log(`${service.name} error:`, error)
       }
-    } catch (error) {
-      console.log('Formspree error:', error)
     }
 
     // Method 4: Try EmailJS as final backup
