@@ -6,44 +6,44 @@ export function WhatMakesUsDifferentSection() {
   const features = [
     {
       icon: Zap,
-      title: "Lightning-Fast Turnaround",
-      description: "While others take weeks, we deliver professional-grade edits in days.",
-      stats: "3x Faster",
+      title: "Rapid-Fire Delivery",
+      description: "Get your polished content in 48-72 hours, not weeks. We turn around projects faster without compromising quality.",
+      stats: "48-72 Hours",
       number: "01"
     },
     {
       icon: Award,
-      title: "Award-Winning Quality",
-      description: "Our editors have worked on Emmy-nominated projects and viral campaigns.",
-      stats: "50+ Awards",
+      title: "Industry-Leading Talent",
+      description: "Our team includes editors from Netflix, Disney, and viral YouTube channels with millions of views.",
+      stats: "Hollywood-Grade",
       number: "02"
     },
     {
       icon: Users,
-      title: "White-Glove Service",
-      description: "Every project gets a dedicated manager who understands your vision.",
-      stats: "1:1 Support",
+      title: "Personal Creative Partner",
+      description: "You get a dedicated editor who learns your style and becomes an extension of your creative vision.",
+      stats: "Dedicated Editor",
       number: "03"
     },
     {
       icon: Globe,
-      title: "Global Creative Network",
-      description: "Access to specialized editors across time zones means 24/7 progress.",
-      stats: "15+ Countries",
+      title: "Always-On Production",
+      description: "While you sleep, our global team works. Projects move forward 24/7 across multiple time zones.",
+      stats: "24/7 Progress",
       number: "04"
     },
     {
       icon: Shield,
-      title: "100% Satisfaction Guarantee",
-      description: "Not happy? We&apos;ll revise until perfect or refund completely.",
-      stats: "0% Risk",
+      title: "Risk-Free Promise",
+      description: "Love it or we'll make it right. Unlimited revisions until you're thrilled, or get your money back.",
+      stats: "100% Guaranteed",
       number: "05"
     },
     {
       icon: Play,
-      title: "Cutting-Edge Technology",
-      description: "We combine human creativity with AI efficiency for innovative results.",
-      stats: "AI-Enhanced",
+      title: "Next-Gen Workflow",
+      description: "AI-powered organization meets human storytelling genius. The future of video editing is here.",
+      stats: "AI-Powered",
       number: "06"
     }
   ]
@@ -53,10 +53,10 @@ export function WhatMakesUsDifferentSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-[#d4af37] mb-6">
-            What Makes Us Different
+            Why Choose EditHive
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Six key advantages that set us apart from the competition
+            Six game-changing advantages that make us the obvious choice for creators who demand excellence
           </p>
         </div>
         
@@ -108,7 +108,7 @@ export function WhatMakesUsDifferentSection() {
             <div className="h-0.5 w-16 bg-[#d4af37]/50"></div>
           </div>
           <p className="text-gray-400 text-lg">
-            <span className="text-[#d4af37] font-semibold">Six key differences</span> that set us apart from the competition
+            <span className="text-[#d4af37] font-semibold">The EditHive advantage</span> - where creativity meets cutting-edge efficiency
           </p>
         </div>
       </div>

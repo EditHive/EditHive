@@ -22,40 +22,36 @@ export async function POST(request: Request) {
     console.log(`📝 MESSAGE: ${message}`)
     console.log('='.repeat(60))
 
-    // Method 1: Try EmailJS (works immediately without API key)
+    // Method 1: Try Web3Forms (most reliable for immediate setup)
     try {
-      const emailjsResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      const web3FormsData = new FormData()
+      web3FormsData.append('access_key', process.env.WEB3FORMS_ACCESS_KEY || '6b8a1b12-8f4d-4f5e-9a2e-3c1d4e5f6a7b')
+      web3FormsData.append('name', name)
+      web3FormsData.append('email', email)
+      web3FormsData.append('message', message)
+      web3FormsData.append('subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
+      web3FormsData.append('from_name', 'EditHive Contact Form')
+      web3FormsData.append('redirect', 'false')
+      web3FormsData.append('botcheck', '')
+      
+      const web3Response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          service_id: 'service_8hdyxjp',
-          template_id: 'template_contact',
-          user_id: 'GvtSKbSSGGKFZR-4q',
-          template_params: {
-            from_name: name,
-            from_email: email,
-            to_name: 'EditHive Team',
-            to_email: 'edithiveproductions09@gmail.com',
-            subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
-            message: message,
-            reply_to: email
-          }
-        })
+        body: web3FormsData
       })
-
-      if (emailjsResponse.ok) {
-        console.log('✅ Email sent via EmailJS to edithiveproductions09@gmail.com')
+      
+      const web3Result = await web3Response.json()
+      
+      if (web3Response.ok && web3Result.success) {
+        console.log('✅ Email sent via Web3Forms to edithiveproductions09@gmail.com')
         return NextResponse.json({ 
           success: true, 
-          message: 'Message sent successfully to your email!' 
+          message: 'Thank you for contacting EditHive! We\'ll get back to you within 24 hours.' 
         })
       } else {
-        console.log('❌ EmailJS failed:', emailjsResponse.status)
+        console.log('❌ Web3Forms failed:', web3Result)
       }
     } catch (error) {
-      console.log('EmailJS error:', error)
+      console.log('Web3Forms error:', error)
     }
 
     // Method 2: Try Resend API if available
@@ -123,30 +119,40 @@ export async function POST(request: Request) {
       console.log('⚠️  No Resend API key found. Add RESEND_API_KEY to environment variables.')
     }
 
-    // Method 3: Try FormSubmit (reliable email delivery)
+    // Method 3: Try EmailJS as backup (reliable service)
     try {
-      const formData = new FormData()
-      formData.append('name', name)
-      formData.append('email', email)
-      formData.append('message', message)
-      formData.append('_subject', `🚨 NEW LEAD: ${name} | EditHive Contact Form`)
-      formData.append('_next', 'https://edithive.com/thank-you')
-      formData.append('_captcha', 'false')
-      
-      const formsubmitResponse = await fetch('https://formsubmit.co/edithiveproductions09@gmail.com', {
+      const emailjsResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: process.env.EMAILJS_SERVICE_ID || 'service_8hdyxjp',
+          template_id: process.env.EMAILJS_TEMPLATE_ID || 'template_contact',
+          user_id: process.env.EMAILJS_USER_ID || 'GvtSKbSSGGKFZR-4q',
+          template_params: {
+            from_name: name,
+            from_email: email,
+            to_name: 'EditHive Team',
+            to_email: 'edithiveproductions09@gmail.com',
+            subject: `🚨 NEW LEAD: ${name} | EditHive Contact Form`,
+            message: message,
+            reply_to: email
+          }
+        })
       })
-      
-      if (formsubmitResponse.ok) {
-        console.log('✅ Email sent via FormSubmit to edithiveproductions09@gmail.com')
+
+      if (emailjsResponse.ok) {
+        console.log('✅ Email sent via EmailJS to edithiveproductions09@gmail.com')
         return NextResponse.json({ 
           success: true, 
-          message: 'Message sent successfully to your email!' 
+          message: 'Thank you for contacting EditHive! We\'ll get back to you within 24 hours.' 
         })
+      } else {
+        console.log('❌ EmailJS failed:', emailjsResponse.status)
       }
     } catch (error) {
-      console.log('FormSubmit error:', error)
+      console.log('EmailJS error:', error)
     }
 
     // Fallback success (form data is logged)
