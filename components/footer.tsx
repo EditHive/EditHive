@@ -23,7 +23,7 @@ export function Footer() {
           ))}
         </div>
 
-        <p className="text-gray-400 text-sm">© 2023 <span className="font-lequire">Edithive</span>. All rights reserved.</p>
+        <p className="text-gray-400 text-sm">© 2026 <span className="font-lequire">Edithive</span>. All rights reserved.</p>
       </div>
     </footer>
   )
